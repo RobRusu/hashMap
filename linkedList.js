@@ -114,16 +114,16 @@ export class LinkedList {
     } else {
       //otherwise loop and check if value is in the list
       while (headNode.nextNode !== null) {
-        if (headNode.value === value) {
-          return true;
+        if (headNode.value.key === value) {
+          return headNode.value.value;
         } else {
           headNode = headNode.nextNode;
         }
       }
     }
-    if (headNode.value === value) {
+    if (headNode.value.key === value) {
       //if last node contains the value return true
-      return true;
+      return headNode.value.value;
     }
     //otherwise return false
     return false;

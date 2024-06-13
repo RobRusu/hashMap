@@ -37,12 +37,22 @@ class HashMap {
     }
     buckets[index].append({ key, value });
   }
+
+  get(key) {
+    let index = this.hash(key);
+    let buckets = this.hashMap;
+
+    if (buckets[index].contains(key)) {
+      return buckets[index].contains(key);
+    }
+    return null;
+  }
 }
 
 const map = new HashMap();
 
 map.set("Carlos", "I am the old value");
 map.set("Carlos", "I am the new value");
-map.set("Kim", "I am the old value");
-map.set("Sam", "I am the newest value");
-console.log(map.hashMap);
+map.set("Kim", "Possible");
+map.set("Sam", "Antha");
+console.log(map.get("Kim"));
