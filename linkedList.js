@@ -129,6 +129,29 @@ export class LinkedList {
     return false;
   }
 
+  containsBool(value) {
+    let headNode = this.head;
+    if (this.head === null) {
+      //if head is empty return false
+      return false;
+    } else {
+      //otherwise loop and check if value is in the list
+      while (headNode.nextNode !== null) {
+        if (headNode.value.key === value) {
+          return true;
+        } else {
+          headNode = headNode.nextNode;
+        }
+      }
+    }
+    if (headNode.value.key === value) {
+      //if last node contains the value return true
+      return true;
+    }
+    //otherwise return false
+    return false;
+  }
+
   find(value) {
     let indexNode = this.head;
     let nodes = 0;
