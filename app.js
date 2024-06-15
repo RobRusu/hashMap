@@ -84,10 +84,33 @@ class HashMap {
     // if key index isn't found, return false
     if (!buckets[index].head) return false;
 
+    // if only one key in the bucket then remove it and change bucket to null
+    if (buckets[index].head.nextNode === null) {
+      buckets[index].head = null;
+      return true;
+    }
+
     // use the remove(key) method of the linked list to remove and update the current bucket
     buckets[index].head = buckets[index].remove(key);
     // if key is removed successfully, return true
     return true;
+  }
+
+  length() {
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+    let keys = 0;
+
+    // iterate through the entire hashMap
+    for (let i = 0; i < buckets.length; i++) {
+      // if the bucket is not empty then use size method to find the amount of keys in the bucket and update keys
+      if (buckets[i].head !== null) {
+        keys = keys + buckets[i].size();
+      }
+    }
+
+    // return total number of keys in the hashMap
+    return keys;
   }
 }
 
@@ -100,6 +123,9 @@ map.set("Kim", "Possible");
 map.set("Sam", "Antha");
 map.set("Pet", "Pi");
 map.set("Core", "Staff");
-console.log(map.hashMap[15].head);
-console.log(map.remove("Sam"));
-console.log(map.hashMap[15].head);
+map.set("Maka", "Baka");
+map.set("Aloo", "man");
+map.remove("Maka");
+map.remove("Aloo");
+console.log(map.length());
+console.log(map.hashMap);
