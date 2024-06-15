@@ -97,12 +97,12 @@ export class LinkedList {
     } else {
       //otherwise loop until end of node and remove penultimate next node reference
       let indexNode = this.head;
-      let previousNode;
+      let currentNode;
       while (indexNode.nextNode !== null) {
-        previousNode = indexNode;
+        currentNode = indexNode;
         indexNode = indexNode.nextNode;
       }
-      previousNode.nextNode = null;
+      currentNode.nextNode = null;
     }
   }
 
@@ -188,6 +188,34 @@ export class LinkedList {
     }
     //return listString, last node value and null
     return `${listString} ( ${node.value} ) -> ${node.nextNode}`;
+  }
+
+  remove(value) {
+    const node = this.head;
+
+    // check if value is in the first node, if yes then remove first value and return the new changed node
+    if (node.value.key === value) {
+      node = node.nextNode;
+      return node;
+    }
+
+    let currentNode = node;
+    let previousNode;
+
+    // loop if currentNode is empty and value doesn't match the key
+    while (currentNode !== null && currentNode.value.key !== value) {
+      //update the previous node to be the current node
+      previousNode = currentNode;
+      // and update current node to be next node
+      currentNode = currentNode.nextNode;
+    }
+
+    // once the while loop condition is no longer true, the key is found in the list
+    // make previous node next node point to the current node next node, essentially removing the desired key
+    previousNode.nextNode = currentNode.nextNode;
+
+    // return the whole list with the modifications
+    return node;
   }
 }
 

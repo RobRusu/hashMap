@@ -74,6 +74,21 @@ class HashMap {
     }
     return false;
   }
+
+  remove(key) {
+    // run the key through the hash method
+    let index = this.hash(key);
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+
+    // if key index isn't found, return false
+    if (!buckets[index].head) return false;
+
+    // use the remove(key) method of the linked list to remove and update the current bucket
+    buckets[index].head = buckets[index].remove(key);
+    // if key is removed successfully, return true
+    return true;
+  }
 }
 
 // testing in CLI
@@ -84,5 +99,7 @@ map.set("Carlos", "I am the new value");
 map.set("Kim", "Possible");
 map.set("Sam", "Antha");
 map.set("Pet", "Pi");
-console.log(map.has("Pet"));
-console.log(map.hashMap[15]);
+map.set("Core", "Staff");
+console.log(map.hashMap[15].head);
+console.log(map.remove("Sam"));
+console.log(map.hashMap[15].head);
