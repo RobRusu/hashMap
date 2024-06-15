@@ -141,6 +141,25 @@ class HashMap {
     // return keys array with all the keys
     return keys;
   }
+
+  values() {
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+    let values = [];
+
+    // iterate through the entire hashMap
+    for (let i = 0; i < buckets.length; i++) {
+      // if bucket is not null/empty
+      if (buckets[i].head !== null) {
+        // find out the amount of values in the bucket and push them to the values array
+        for (let j = 0; j < buckets[i].size(); j++) {
+          values.push(buckets[i].at(j + 1).value.value);
+        }
+      }
+    }
+    // return values array with all the values
+    return values;
+  }
 }
 
 // testing in CLI
@@ -155,4 +174,4 @@ map.set("Core", "Staff");
 map.set("Maka", "Baka");
 map.set("Aloo", "man");
 console.log(map.hashMap);
-console.log(map.keys());
+console.log(map.values());
