@@ -122,6 +122,25 @@ class HashMap {
       buckets[i].head = null;
     }
   }
+
+  keys() {
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+    let keys = [];
+
+    // iterate through the entire hashMap
+    for (let i = 0; i < buckets.length; i++) {
+      // if bucket is not null/empty
+      if (buckets[i].head !== null) {
+        // find out the amount of keys in the bucket and push them to the keys array
+        for (let j = 0; j < buckets[i].size(); j++) {
+          keys.push(buckets[i].at(j + 1).value.key);
+        }
+      }
+    }
+    // return keys array with all the keys
+    return keys;
+  }
 }
 
 // testing in CLI
@@ -135,6 +154,5 @@ map.set("Pet", "Pi");
 map.set("Core", "Staff");
 map.set("Maka", "Baka");
 map.set("Aloo", "man");
-map.remove("Maka");
-map.remove("Aloo");
 console.log(map.hashMap);
+console.log(map.keys());
