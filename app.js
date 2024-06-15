@@ -112,6 +112,16 @@ class HashMap {
     // return total number of keys in the hashMap
     return keys;
   }
+
+  clear() {
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+
+    // iterate through the entire hashMap and remove all entries in the hashMap
+    for (let i = 0; i < buckets.length; i++) {
+      buckets[i].head = null;
+    }
+  }
 }
 
 // testing in CLI
@@ -127,5 +137,4 @@ map.set("Maka", "Baka");
 map.set("Aloo", "man");
 map.remove("Maka");
 map.remove("Aloo");
-console.log(map.length());
 console.log(map.hashMap);
