@@ -2,16 +2,12 @@
 
 import { LinkedList } from "./linkedList.js";
 
-// Use the following snippet whenever you access a bucket through an index. We want to throw an error if we try to access an out of bound index:
-
-// if (index < 0 || index >= buckets.length) {
-//   throw new Error("Trying to access index out of bound");
-// }
-
 class HashMap {
-  constructor(size = 16) {
+  constructor(size = 16, loadFactor = 0.75) {
     //set size of array, default is 16
     this.size = size;
+    //set load factor to 0.8 by default, this is to determine when the number of buckets need to grow
+    this.loadFactor = loadFactor;
     // change each array to a linked list
     this.hashMap = new Array(this.size).fill(null).map(() => new LinkedList());
   }
@@ -34,6 +30,16 @@ class HashMap {
     let index = this.hash(key);
     // assign the hashmap to buckets variable
     let buckets = this.hashMap;
+
+    // determine if number of buckets need to grow
+    let maxBuckets = this.size * this.loadFactor;
+    if (maxBuckets < this.lengthBuckets()) {
+      // if number of occupied buckets exceeds the threshold create new empty linked lists and double the size of the hashmap
+      for (let i = 0; i < this.size; i++) {
+        buckets.push(new LinkedList());
+      }
+      this.size = this.size * 2;
+    }
 
     // run bucket through the size method from the linkedList and do size() times loops
     // this is to update value for an already existing key
@@ -113,6 +119,23 @@ class HashMap {
     return keys;
   }
 
+  lengthBuckets() {
+    // assign the hashmap to buckets variable
+    let buckets = this.hashMap;
+    let occupiedBuckets = 0;
+
+    // iterate through the entire hashMap
+    for (let i = 0; i < buckets.length; i++) {
+      // if the bucket is not empty then add 1 to occupiedBuckets
+      if (buckets[i].head !== null) {
+        occupiedBuckets++;
+      }
+    }
+
+    // return total number of keys in the hashMap
+    return occupiedBuckets;
+  }
+
   clear() {
     // assign the hashmap to buckets variable
     let buckets = this.hashMap;
@@ -183,17 +206,3 @@ class HashMap {
     return entries;
   }
 }
-
-// testing in CLI
-const map = new HashMap();
-
-map.set("Carlos", "I am the old value");
-map.set("Carlos", "I am the new value");
-map.set("Kim", "Possible");
-map.set("Sam", "Antha");
-map.set("Pet", "Pi");
-map.set("Core", "Staff");
-map.set("Maka", "Baka");
-map.set("Aloo", "man");
-console.log(map.hashMap);
-console.log(map.entries());
